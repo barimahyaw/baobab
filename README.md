@@ -1,4 +1,4 @@
-# Domain Driven Design, Event Deriven with Clean Architecture
+# Domain Driven Design, Event Driven with Clean Architecture
 
 ### Overview
 Welcome to the .NET 8 C# microservices project, leveraging various industry best practices and design patterns to ensure a robust, scalable, and maintainable solution. This project embraces technologies like Entity Framework Core 8, C# 12, Clean Architecture, Domain-Driven Design (DDD), Event-Driven Design, and follows industry standards such as CQRS, Specification Pattern, SOLID principles, Gang of Four Design Patterns, Outbox Pattern, and more.
