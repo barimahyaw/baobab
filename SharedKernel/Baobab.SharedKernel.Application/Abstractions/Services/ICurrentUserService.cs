@@ -2,7 +2,7 @@
 
 public interface ICurrentUserService
 {
-    Ulid UserId { get; }
+    Guid UserId { get; }
     List<KeyValuePair<string, string>> Claims { get; }
     bool IsInRole(string role);
     bool IsInAnyRole(List<string> role);

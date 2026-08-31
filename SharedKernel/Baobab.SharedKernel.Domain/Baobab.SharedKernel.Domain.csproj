@@ -8,7 +8,6 @@
   <ItemGroup>
     <PackageReference Include="MediatR.Contracts" />
     <PackageReference Include="Newtonsoft.Json" />
-    <PackageReference Include="Ulid" />
   </ItemGroup>
 
 </Project>

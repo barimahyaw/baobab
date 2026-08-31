@@ -12,19 +12,5 @@ public class AuditTrailConfiguration<S>(S schema) : IEntityTypeConfiguration<Aud
     public void Configure(EntityTypeBuilder<Audit> builder)
     {
         builder.ToTable("audits", Schema.Name);
-
-        builder.Property(x => x.Id)
-            .HasConversion(
-                id => id.ToString(),
-                value => Ulid.Parse(value)
-            )
-            .HasColumnType("varchar(26)");
-
-        builder.Property(x => x.UserId)
-            .HasConversion(
-                userId => userId.ToString(),
-                value => Ulid.Parse(value)
-            )
-            .HasColumnType("varchar(26)");
     }
 }

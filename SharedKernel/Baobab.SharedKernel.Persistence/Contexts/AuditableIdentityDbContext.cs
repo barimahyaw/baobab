@@ -13,7 +13,7 @@ public class AuditableIdentityDbContext<TUser, TRole, TKey>(DbContextOptions opt
 {
     public DbSet<Audit> AuditTrail { get; set; } = null!;
 
-    public virtual async Task<int> SaveChangesAsync(Ulid userId)
+    public virtual async Task<int> SaveChangesAsync(Guid userId)
     {
         var auditEntries = AuditHelper.OnBeforeSaveChanges(ChangeTracker, userId, AuditTrail);
         var result = await base.SaveChangesAsync();

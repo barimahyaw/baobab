@@ -11,17 +11,13 @@ public static class EntityExtraConfiguration<T> where T : EntityExtra
     {
         builder.Property(c => c.CreatedUserId)
             .HasConversion(
-                userId => userId.Id.ToString(),
-                value => UserId.Create(Ulid.Parse(value))
-            )
-            .HasColumnType("varchar(26)");
+                userId => (Guid)userId,
+                value => UserId.Create(value));
 
         builder.Property(c => c.LastModifiedUserId)
             .HasConversion(
-                userId => userId != null ? userId.Id.ToString() : null,
-                value => value != null ? UserId.Create(Ulid.Parse(value)) : null
-            )
-            .HasColumnType("varchar(26)");
+                userId => userId != null ? (Guid)userId : (Guid?)null,
+                value => value != null ? UserId.Create(value.Value) : null);
 
         builder.Property(c => c.CreatedAtUtc)
             .IsRequired();

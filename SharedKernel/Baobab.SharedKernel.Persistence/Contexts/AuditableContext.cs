@@ -15,7 +15,7 @@ public class AuditableContext<TDbContext>
 {
     public DbSet<Audit> AuditTrail { get; set; } = null!;
 
-    public virtual async Task<int> SaveChangesAsync(Ulid userId)
+    public virtual async Task<int> SaveChangesAsync(Guid userId)
     {
         var auditEntries = AuditHelper.OnBeforeSaveChanges(ChangeTracker, userId, AuditTrail);
         var result = await base.SaveChangesAsync();
@@ -27,8 +27,8 @@ public class AuditableContext<TDbContext>
     {
         var userId = currentUserService.UserId;
 
-        if ((userId == Ulid.Empty || userId == default)
-            && !Ulid.TryParse(Environment.GetEnvironmentVariable("SYS_ADMIN_ID"), out userId))
+        if ((userId == Guid.Empty || userId == default)
+            && !Guid.TryParse(Environment.GetEnvironmentVariable("SYS_ADMIN_ID"), out userId))
         {
             logger.LogError("Save Changes operation failed due to missing SYS_ADMIN_ID environment variable.");
             throw new InvalidOperationException("SYS_ADMIN_ID environment variable is missing.");
@@ -59,7 +59,7 @@ public class AuditableContext<TDbContext>
             }
         }
 
-        if (currentUserService.UserId == Ulid.Empty || currentUserService.UserId == default)
+        if (currentUserService.UserId == Guid.Empty || currentUserService.UserId == default)
             return await base.SaveChangesAsync(cancellationToken);
 
         return await SaveChangesAsync(currentUserService.UserId);

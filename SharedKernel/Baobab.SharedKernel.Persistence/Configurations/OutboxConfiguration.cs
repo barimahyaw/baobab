@@ -12,12 +12,5 @@ public class OutboxConfiguration<T>(T schema) : IEntityTypeConfiguration<OutboxM
     public void Configure(EntityTypeBuilder<OutboxMessage> builder)
     {
         builder.ToTable("outbox_messages", Schema.Name);
-
-        builder.Property(x => x.Id)
-            .HasConversion(
-                id => id.ToString(),
-                value => Ulid.Parse(value)
-            )
-            .HasColumnType("varchar(26)");
     }
 }
