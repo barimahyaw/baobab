@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Title>Baobab SharedKernel Domain</Title>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Contracts" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="Ulid" />
+  </ItemGroup>
+
+</Project>
