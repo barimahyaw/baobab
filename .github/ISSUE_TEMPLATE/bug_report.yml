@@ -1,0 +1,154 @@
+name: 🐛 Bug Report
+description: Report a bug or issue with the SharedKernel
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug! 🐛
+        
+        Please fill out this form to help us understand and reproduce the issue.
+
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      description: Please confirm you have completed the following
+      options:
+        - label: I have searched existing issues to ensure this bug hasn't been reported
+          required: true
+        - label: I have tested with the latest version of the SharedKernel
+          required: true
+        - label: I have reviewed the troubleshooting documentation
+          required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 🐛 Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: Describe the bug...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 🔄 Steps to Reproduce
+      description: Detailed steps to reproduce the behavior
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+      value: |
+        1. 
+        2. 
+        3. 
+        4. 
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Expected Behavior
+      description: A clear description of what you expected to happen
+      placeholder: Describe what should happen...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Actual Behavior
+      description: A clear description of what actually happened
+      placeholder: Describe what actually happened...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: 📦 Affected Component
+      description: Which part of the SharedKernel is affected?
+      options:
+        - Domain Layer
+        - Application Layer
+        - Infrastructure Layer
+        - Persistence Layer
+        - Presentation Layer
+        - Documentation
+        - Build/Packaging
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 🚨 Severity
+      description: How severe is this bug?
+      options:
+        - Critical (System unusable)
+        - High (Major functionality broken)
+        - Medium (Some functionality affected)
+        - Low (Minor issue)
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 🌍 Environment
+      description: Information about your environment
+      value: |
+        - OS: [e.g., Windows 11, macOS 13, Ubuntu 22.04]
+        - .NET Version: [e.g., .NET 9.0]
+        - SharedKernel Version: [e.g., 1.0.5]
+        - IDE: [e.g., Visual Studio 2022, VS Code, Rider]
+        - Database: [e.g., PostgreSQL 15, SQL Server 2022]
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 📋 Logs/Error Messages
+      description: Any relevant log output or error messages
+      placeholder: Paste logs here...
+      render: text
+
+  - type: textarea
+    id: code
+    attributes:
+      label: 💻 Code Sample
+      description: Minimal code sample that reproduces the issue (if applicable)
+      placeholder: Paste code here...
+      render: csharp
+
+  - type: textarea
+    id: workaround
+    attributes:
+      label: 🔧 Workaround
+      description: Any workaround you've found for this issue
+      placeholder: Describe any workarounds...
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📝 Additional Context
+      description: Add any other context about the problem here
+      placeholder: Any additional information...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: 🤝 Contribution
+      description: Are you willing to help with this issue?
+      options:
+        - label: I am willing to submit a pull request for this issue
+          required: false

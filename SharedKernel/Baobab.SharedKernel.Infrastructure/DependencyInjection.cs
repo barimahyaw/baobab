@@ -114,7 +114,7 @@ public static class DependencyInjection
 #else
                             c.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                             c.Response.ContentType = "application/json";
-                            var result = JsonConvert.SerializeObject(Result.Fail("An unhandled error has occurred."));
+                            var result = JsonConvert.SerializeObject(Result.Fail(new Error("unhandled_error", "An unhandled error has occurred.")));
                             return c.Response.WriteAsync(result);
 #endif
                     }

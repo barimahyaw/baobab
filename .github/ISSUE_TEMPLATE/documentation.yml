@@ -1,0 +1,175 @@
+name: 📖 Documentation
+description: Suggest documentation improvements or report documentation issues
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve our documentation! 📖
+        
+        Whether it's fixing a typo, clarifying instructions, or adding new examples, all documentation improvements are welcome.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: 📋 Documentation Type
+      description: What type of documentation issue is this?
+      options:
+        - Bug/Error in existing documentation
+        - Missing documentation
+        - Outdated documentation
+        - Unclear/confusing documentation
+        - New documentation needed
+        - Documentation enhancement
+        - Translation request
+    validations:
+      required: true
+
+  - type: dropdown
+    id: location
+    attributes:
+      label: 📍 Location
+      description: Where is this documentation located (or where should it be)?
+      options:
+        - README.md
+        - Getting Started Guide
+        - Architecture Overview
+        - Implementation Guide
+        - Patterns & Practices
+        - Examples & Tutorials
+        - Troubleshooting
+        - API Documentation
+        - Code Comments
+        - Blog Series
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: 🚩 Current Issue
+      description: Describe the problem with the current documentation (if applicable)
+      placeholder: |
+        - What is wrong or missing?
+        - Which section is affected?
+        - What makes it confusing or unclear?
+
+  - type: textarea
+    id: improvement
+    attributes:
+      label: ✨ Suggested Improvement
+      description: Describe what should be added, changed, or improved
+      placeholder: |
+        - What specific changes would help?
+        - What additional content is needed?
+        - How can we make it clearer?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: audience
+    attributes:
+      label: 👥 Target Audience
+      description: Who would benefit most from this documentation improvement?
+      options:
+        - Beginners (new to SharedKernel)
+        - Intermediate developers
+        - Advanced users
+        - Enterprise architects
+        - All users
+        - Specific use case
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: 📖 User Context
+      description: Describe the scenario where this documentation would be helpful
+      placeholder: |
+        - What task were you trying to accomplish?
+        - What questions were you trying to answer?
+        - At what point did you get stuck?
+
+  - type: textarea
+    id: content
+    attributes:
+      label: 📝 Proposed Content
+      description: If you have specific content suggestions, please share them
+      placeholder: |
+        Share your proposed text, code examples, or outline here...
+      render: markdown
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: 💻 Code Examples Needed
+      description: Are there specific code examples that would help?
+      placeholder: |
+        - What scenarios need code examples?
+        - What patterns should be demonstrated?
+        - What common use cases are missing?
+      render: csharp
+
+  - type: textarea
+    id: references
+    attributes:
+      label: 📚 References
+      description: Links to related documentation or resources
+      placeholder: |
+        - Links to similar good documentation
+        - References to standards or best practices
+        - Related issues or discussions
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 🎯 Priority
+      description: How important is this documentation improvement?
+      options:
+        - Critical (Blocking users)
+        - High (Frequently needed)
+        - Medium (Would be helpful)
+        - Low (Nice to have)
+    validations:
+      required: true
+
+  - type: textarea
+    id: formats
+    attributes:
+      label: 📊 Preferred Format
+      description: How should this documentation be presented?
+      placeholder: |
+        - Written guide
+        - Code examples
+        - Diagrams/visuals
+        - Video tutorial
+        - FAQ section
+        - Step-by-step tutorial
+        - Reference documentation
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: 📝 Additional Context
+      description: Any other context about this documentation request
+      placeholder: Screenshots, mockups, or additional details...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: 🤝 Contribution
+      description: Are you willing to help with this documentation?
+      options:
+        - label: I can write the initial draft
+          required: false
+        - label: I can provide code examples
+          required: false
+        - label: I can help review and improve existing content
+          required: false
+        - label: I can help with proofreading
+          required: false
