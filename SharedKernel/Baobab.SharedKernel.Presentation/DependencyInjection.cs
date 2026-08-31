@@ -1,10 +1,12 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi;
 using Serilog;
 using System.Reflection;
+using System.Threading.RateLimiting;
 
 namespace Baobab.SharedKernel.Presentation;
 
@@ -53,7 +55,7 @@ public static class DependencyInjection
              Title = $"{projectName} {serviceName} Service",
              License = new OpenApiLicense
              {
-                 Name = "Keed Digital license",
+                 Name = "MIT License",
                  //Url = new Uri("") // to be provided later
              }
          });
@@ -95,6 +97,47 @@ public static class DependencyInjection
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
 
+        return services;
+    }
+
+    public static IServiceCollection AddRateLimitConfig(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddRateLimiter(options =>
+        {
+            // Get values from environment variables with fallback defaults
+            var permitLimit = int.Parse(Environment.GetEnvironmentVariable("RATE_LIMIT_PERMIT_LIMIT") ?? "100");
+            var windowInSeconds = int.Parse(Environment.GetEnvironmentVariable("RATE_LIMIT_WINDOW_SECONDS") ?? "60");
+            var queueLimit = int.Parse(Environment.GetEnvironmentVariable("RATE_LIMIT_QUEUE_LIMIT") ?? "0");
+
+            // Configure global rate limiting based on client IP
+            options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+            {
+                return RateLimitPartition.GetFixedWindowLimiter(
+                    partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "anonymous",
+                    factory: _ => new FixedWindowRateLimiterOptions
+                    {
+                        AutoReplenishment = true,
+                        PermitLimit = permitLimit,
+                        Window = TimeSpan.FromSeconds(windowInSeconds),
+                        QueueLimit = queueLimit,
+                        QueueProcessingOrder = QueueProcessingOrder.OldestFirst
+                    });
+            });
+
+            // OnRejected handler
+            options.OnRejected = async (context, token) =>
+            {
+                context.HttpContext.Response.StatusCode = 429; // Too Many Requests
+                var retryAfter = context.Lease.TryGetMetadata(MetadataName.RetryAfter, out var timeSpan)
+                    ? timeSpan.TotalSeconds.ToString()
+                    : "n/a";
+                await context.HttpContext.Response.WriteAsJsonAsync(new
+                {
+                    error = "Too many requests. Please try again later.",
+                    retryAfter
+                }, token);
+            };
+        });
         return services;
     }
 }

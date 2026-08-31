@@ -1,6 +1,7 @@
 ﻿using Baobab.SharedKernel.Domain.Primitives;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace Baobab.SharedKernel.Persistence.OutBox.Interceptors;
 
@@ -14,6 +15,9 @@ public sealed class ConvertDomainEventsToOutboxMessagesInterceptor : SaveChanges
         var dbContext = eventData.Context;
 
         if (dbContext is null) return base.SavingChangesAsync(eventData, result, cancellationToken);
+
+        var executableAssembly = Assembly.GetEntryAssembly()
+            ?? Assembly.GetCallingAssembly();
 
         var outboxMessages = dbContext.ChangeTracker
             .Entries<AggregateRoot>()
@@ -32,6 +36,7 @@ public sealed class ConvertDomainEventsToOutboxMessagesInterceptor : SaveChanges
                 OccurredOnUtc = DateTime.UtcNow,
                 Type = domainEvent.GetType().FullName!,
                 Assembly = domainEvent.GetType().Assembly.FullName!,
+                ExecutingAssembly = executableAssembly.FullName!,
                 Content = JsonConvert.SerializeObject(
                     domainEvent,
                     new JsonSerializerSettings

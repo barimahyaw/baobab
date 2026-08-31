@@ -31,7 +31,7 @@ public static class EndpointExtensions
 
         foreach (IEndpoint endpoint in endpoints)
         {
-            endpoint.MapEndpoint(endpointRouteBuilder);
+            endpoint.MapEndpoints(endpointRouteBuilder);
         }
 
         return app;

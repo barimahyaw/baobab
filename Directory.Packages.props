@@ -22,6 +22,7 @@
     <PackageVersion Include="MassTransit.RabbitMQ" Version="8.5.9" />
 
     <!-- Infrastructure -->
+    <PackageVersion Include="AWSSDK.S3" Version="4.0.102" />
     <PackageVersion Include="Google.Protobuf" Version="3.35.1" />
     <PackageVersion Include="Grpc.AspNetCore" Version="2.83.0" />
     <PackageVersion Include="Grpc.AspNetCore.HealthChecks" Version="2.83.0" />
@@ -41,6 +42,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.17.0" />
     <PackageVersion Include="Polly" Version="8.7.0" />
     <PackageVersion Include="Sentry" Version="6.8.0" />
+    <PackageVersion Include="Sentry.OpenTelemetry" Version="6.8.0" />
     <PackageVersion Include="StackExchange.Redis" Version="3.1.13" />
 
     <!-- Persistence -->

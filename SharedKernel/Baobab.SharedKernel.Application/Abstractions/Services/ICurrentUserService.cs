@@ -1,4 +1,4 @@
-﻿namespace Baobab.SharedKernel.Application.Abstractions.Services;
+namespace Baobab.SharedKernel.Application.Abstractions.Services;
 
 public interface ICurrentUserService
 {
@@ -12,13 +12,35 @@ public interface ICurrentUserService
     List<string> UserZones();
     string Role();
     /// <summary>
-    /// Get the IP address of the current user.
+    /// The IP address of the current user's client.
     /// </summary>
-    /// <returns> The IP address as a string, or null if not available.</returns>
-    string? IpAddress();
+    string? IpAddress { get; }
     /// <summary>
-    /// Get the user agent of the current user.
+    /// The User-Agent header of the current request.
     /// </summary>
-    /// <returns> The user agent as a string, or null if not available.</returns>
-    string? UserAgent();
+    string? UserAgent { get; }
+    /// <summary>
+    /// The distributed trace identifier for the current request.
+    /// </summary>
+    string? TraceIdentifier { get; }
+    /// <summary>
+    /// The value of the "Channel" request header.
+    /// </summary>
+    string? Channel { get; }
+    /// <summary>
+    /// The value of the "Device-Id" request header.
+    /// </summary>
+    string? DeviceId { get; }
+    /// <summary>
+    /// The value of the "App-Version" request header.
+    /// </summary>
+    string? AppVersion { get; }
+    /// <summary>
+    /// The value of the "Device-Version" request header.
+    /// </summary>
+    string? DeviceVersion { get; }
+    /// <summary>
+    /// The bearer token extracted from the Authorization header, without the "Bearer " prefix.
+    /// </summary>
+    string? BearerToken { get; }
 }
