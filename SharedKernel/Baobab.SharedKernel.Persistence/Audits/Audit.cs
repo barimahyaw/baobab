@@ -1,11 +1,11 @@
-﻿using Baobab.SharedKernel.Domain.Primitives;
+using Baobab.SharedKernel.Domain.Primitives;
 
 namespace Baobab.SharedKernel.Persistence.Audits;
 
 public sealed class Audit : Entity
 {
-    public Ulid Id { get; private set; }
-    public Ulid UserId { get; private set; }
+    public Guid Id { get; private set; }
+    public Guid UserId { get; private set; }
     public string? Type { get; private set; }
     public string? TableName { get; private set; }
     public DateTime DateTime { get; private set; }
@@ -16,9 +16,9 @@ public sealed class Audit : Entity
 
     private Audit() { }
 
-    private Audit(Ulid userId, string type, string tableName, DateTime dateTime, string? oldValues, string? newValues, string? affectedColumns, string primaryKey)
+    private Audit(Guid userId, string type, string tableName, DateTime dateTime, string? oldValues, string? newValues, string? affectedColumns, string primaryKey)
     {
-        Id = Ulid.NewUlid();
+        Id = Guid.CreateVersion7();
         UserId = userId;
         Type = type;
         TableName = tableName;
@@ -29,6 +29,6 @@ public sealed class Audit : Entity
         PrimaryKey = primaryKey;
     }
 
-    public static Audit Create(Ulid userId, string type, string tableName, DateTime dateTime, string? oldValues, string? newValues, string? affectedColumns, string primaryKey)
+    public static Audit Create(Guid userId, string type, string tableName, DateTime dateTime, string? oldValues, string? newValues, string? affectedColumns, string primaryKey)
         => new(userId, type, tableName, dateTime, oldValues, newValues, affectedColumns, primaryKey);
 }

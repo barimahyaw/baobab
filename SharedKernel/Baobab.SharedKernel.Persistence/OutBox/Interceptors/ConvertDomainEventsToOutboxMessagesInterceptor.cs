@@ -28,7 +28,7 @@ public sealed class ConvertDomainEventsToOutboxMessagesInterceptor : SaveChanges
             })
             .Select(domainEvent => new OutboxMessage
             {
-                Id = Ulid.NewUlid(),
+                Id = Guid.CreateVersion7(),
                 OccurredOnUtc = DateTime.UtcNow,
                 Type = domainEvent.GetType().FullName!,
                 Assembly = domainEvent.GetType().Assembly.FullName!,

@@ -4,7 +4,7 @@ namespace Baobab.SharedKernel.Persistence.OutBox;
 
 public class OutboxMessage : Entity
 {
-    public Ulid Id { get; set; }
+    public Guid Id { get; set; }
     public string Type { get; set; } = default!;
     public string Assembly { get; set; } = default!;    
     public string Content { get; set; } = default!;

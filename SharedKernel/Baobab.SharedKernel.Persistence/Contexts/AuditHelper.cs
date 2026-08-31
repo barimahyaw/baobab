@@ -6,7 +6,7 @@ namespace Baobab.SharedKernel.Persistence.Contexts;
 
 public class AuditHelper
 {
-    public static List<AuditEntry> OnBeforeSaveChanges(ChangeTracker changeTracker, Ulid userId, DbSet<Audit> auditTrail)
+    public static List<AuditEntry> OnBeforeSaveChanges(ChangeTracker changeTracker, Guid userId, DbSet<Audit> auditTrail)
     {
         changeTracker.DetectChanges();
         var auditEntries = new List<AuditEntry>();
