@@ -1,6 +1,4 @@
 # Baobab SharedKernel
-=======
-# Domain Driven Design, Event Driven with Clean Architecture
 
 [![.NET](https://img.shields.io/badge/.NET-10.0-blue.svg)](https://dotnet.microsoft.com/download)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
