@@ -85,8 +85,8 @@ dependencies.
 ## Getting Started
 
 ```bash
-git clone https://github.com/barimahyaw/ddd_event_driven_with_clean_architecture.base.git
-cd ddd_event_driven_with_clean_architecture.base
+git clone https://github.com/barimahyaw/baobab.git
+cd baobab
 dotnet restore Baobab.sln
 dotnet build Baobab.sln
 ```

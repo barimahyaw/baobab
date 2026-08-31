@@ -13,8 +13,8 @@
     <Company>Baobab</Company>
     <Product>Baobab SharedKernel</Product>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/barimahyaw/ddd_event_driven_with_clean_architecture.base</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/barimahyaw/ddd_event_driven_with_clean_architecture.base</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/barimahyaw/baobab</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/barimahyaw/baobab</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>ddd;clean-architecture;cqrs;event-driven;sharedkernel;dotnet</PackageTags>
   </PropertyGroup>
