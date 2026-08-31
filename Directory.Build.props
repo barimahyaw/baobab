@@ -1,0 +1,22 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Isaac Nana Gyan Ayeh</Authors>
+    <Company>Baobab</Company>
+    <Product>Baobab SharedKernel</Product>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/barimahyaw/ddd_event_driven_with_clean_architecture.base</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/barimahyaw/ddd_event_driven_with_clean_architecture.base</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ddd;clean-architecture;cqrs;event-driven;sharedkernel;dotnet</PackageTags>
+  </PropertyGroup>
+
+</Project>
