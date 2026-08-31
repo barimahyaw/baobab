@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Baobab.SharedKernel.Persistence.Configurations;
 
 public class OutboxConfiguration<T>(T schema) : IEntityTypeConfiguration<OutboxMessage>
-    where T : ISchemaStringValue
+    where T : IProjectStringValue
 {
     public T Schema { get; } = schema;
 

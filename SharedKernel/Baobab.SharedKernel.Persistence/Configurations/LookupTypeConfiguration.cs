@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Baobab.SharedKernel.Persistence.Configurations;
 
 internal class LookupTypeConfiguration<S>(S schema) : IEntityTypeConfiguration<LookupType>
-     where S : ISchemaStringValue
+     where S : IProjectStringValue
 {
     public S Schema { get; } = schema;
 

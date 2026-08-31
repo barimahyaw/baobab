@@ -5,7 +5,7 @@ using Baobab.SharedKernel.Domain.Lookups;
 namespace Baobab.SharedKernel.Persistence.Configurations;
 
 internal class LookupValueConfiguration<S>(S project) : IEntityTypeConfiguration<LookupValue>
-    where S : ISchemaStringValue
+    where S : IProjectStringValue
 {
     public S Schema { get; } = project;
 

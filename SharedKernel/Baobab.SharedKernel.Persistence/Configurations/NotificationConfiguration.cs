@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace Baobab.SharedKernel.Persistence.Configurations;
 
 internal class NotificationConfiguration<P>(P project) : IEntityTypeConfiguration<Notification>
-    where P : ISchemaStringValue
+    where P : IProjectStringValue
 {
     public P Project { get; } = project;
 
