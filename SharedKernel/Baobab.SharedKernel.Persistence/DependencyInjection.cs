@@ -1,7 +1,10 @@
 ﻿using Baobab.SharedKernel.Application.Abstractions.Data;
 using Baobab.SharedKernel.Domain.Notifications.Repositories;
+using Baobab.SharedKernel.Domain.Primitives;
+using Baobab.SharedKernel.Persistence.OutBox.Idempotence;
 using Baobab.SharedKernel.Persistence.OutBox.Interceptors;
 using Baobab.SharedKernel.Persistence.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,11 +40,39 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddOutboxIdempotentConfig(this IServiceCollection services)
+    public static IServiceCollection AddOutboxIdempotentConfig<TDbContext>(this IServiceCollection services)
+        where TDbContext : DbContext
     {
-        // the decorator pattern is used to make sure that the domain event handlers are idempotent
-        // come from the Scrutor library
-        //services.Decorate(typeof(INotificationHandler<>), typeof(IdempotentDomainEventHandler<,>));
+        // Decorates every registered INotificationHandler<TDomainEvent> with IdempotentDomainEventHandler<,>
+        // so domain event handlers are idempotent when the OutBox reprocesses a message after a failure.
+        services.AddScoped<IOutboxMessageContext, OutboxMessageContext>();
+
+        var handlerDescriptors = services
+            .Where(s => s.ServiceType.IsGenericType
+                && s.ServiceType.GetGenericTypeDefinition() == typeof(INotificationHandler<>)
+                && typeof(IDomainEvent).IsAssignableFrom(s.ServiceType.GetGenericArguments()[0]))
+            .ToList();
+
+        foreach (var descriptor in handlerDescriptors)
+        {
+            var domainEventType = descriptor.ServiceType.GetGenericArguments()[0];
+            var decoratorType = typeof(IdempotentDomainEventHandler<,>)
+                .MakeGenericType(domainEventType, typeof(TDbContext));
+
+            services.Remove(descriptor);
+
+            services.Add(ServiceDescriptor.Describe(
+                descriptor.ServiceType,
+                sp =>
+                {
+                    object innerHandler = descriptor.ImplementationFactory != null
+                        ? descriptor.ImplementationFactory(sp)
+                        : ActivatorUtilities.CreateInstance(sp, descriptor.ImplementationType!);
+
+                    return ActivatorUtilities.CreateInstance(sp, decoratorType, innerHandler);
+                },
+                descriptor.Lifetime));
+        }
 
         return services;
     }

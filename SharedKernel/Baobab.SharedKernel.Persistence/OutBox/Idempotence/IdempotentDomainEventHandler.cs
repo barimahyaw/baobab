@@ -1,28 +1,31 @@
-﻿using Baobab.SharedKernel.Domain.Primitives;
+using Baobab.SharedKernel.Domain.Primitives;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Baobab.SharedKernel.Persistence.OutBox.Idempotence;
 
-internal class IdempotentDomainEventHandler<TDomainEvent, TDbContext>(
+internal sealed class IdempotentDomainEventHandler<TDomainEvent, TDbContext>(
     INotificationHandler<TDomainEvent> decorated,
-    TDbContext dbContext)
-    where TDomainEvent : DomainEvent
+    TDbContext dbContext,
+    IOutboxMessageContext outboxMessageContext)
+    : INotificationHandler<TDomainEvent>
+    where TDomainEvent : IDomainEvent
     where TDbContext : DbContext
 {
     private readonly INotificationHandler<TDomainEvent> _decorated = decorated;
     private readonly TDbContext _dbContext = dbContext;
+    private readonly IOutboxMessageContext _outboxMessageContext = outboxMessageContext;
 
     public async Task Handle(TDomainEvent notification, CancellationToken cancellationToken)
     {
-        //string consumerName = _decorated.GetType().FullName!;
         string consumer = _decorated.GetType().Name;
+        Guid messageId = _outboxMessageContext.MessageId;
 
         if (await _dbContext.Set<OutboxMessageConsumer>()
                 .AnyAsync(
                     outboxMessageConsumer =>
-                        outboxMessageConsumer.Name == consumer &&
-                        outboxMessageConsumer.Id == notification.Id,
+                        outboxMessageConsumer.Id == messageId &&
+                        outboxMessageConsumer.Name == consumer,
                     cancellationToken))
         {
             return;
@@ -33,7 +36,7 @@ internal class IdempotentDomainEventHandler<TDomainEvent, TDbContext>(
         _dbContext.Set<OutboxMessageConsumer>()
             .Add(new OutboxMessageConsumer
             {
-                Id = notification.Id,
+                Id = messageId,
                 Name = consumer
             });
 

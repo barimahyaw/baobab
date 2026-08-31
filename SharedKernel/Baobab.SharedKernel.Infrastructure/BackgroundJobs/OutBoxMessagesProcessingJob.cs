@@ -1,25 +1,32 @@
-﻿using Baobab.SharedKernel.Domain.Primitives;
+using Baobab.SharedKernel.Domain.Primitives;
 using Baobab.SharedKernel.Domain.Primitives.Factory;
 using Baobab.SharedKernel.Infrastructure.Resilience;
 using Baobab.SharedKernel.Persistence.OutBox;
+using Baobab.SharedKernel.Persistence.OutBox.Idempotence;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Polly;
+using System.Reflection;
 
 namespace Baobab.SharedKernel.Infrastructure.BackgroundJobs;
 
 public class OutBoxMessagesProcessingJob<TDbContext>(
     ILogger<OutBoxMessagesProcessingJob<TDbContext>> logger,
     TDbContext dbContext,
-    IPublisher publisher) : IOutBoxMessagesProcessingJob
+    IPublisher publisher,
+    IOutboxMessageContext outboxMessageContext) : IOutBoxMessagesProcessingJob
     where TDbContext : DbContext
 {
     public async Task Execute(CancellationToken cancellationToken = default)
     {
+        var executableAssembly = Assembly.GetEntryAssembly()
+            ?? Assembly.GetCallingAssembly();
+
         var messages = await dbContext
                .Set<OutboxMessage>()
-               .Where(m => m.ProcessedDateUtc == null)
+               .Where(m => m.ProcessedDateUtc == null
+                    && m.ExecutingAssembly == executableAssembly.FullName)
                .OrderByDescending(m => m.ProcessedDateUtc)
                .Take(20)
                .ToListAsync(cancellationToken);
@@ -39,6 +46,8 @@ public class OutBoxMessagesProcessingJob<TDbContext>(
 
             PolicyResult policyResult = await retryPolicy.ExecuteAndCaptureAsync(async () =>
             {
+                outboxMessageContext.SetMessageId(message.Id);
+
                 IDomainEvent domainEvent = EventFactory.CreateEventTypeUsingReflection(message.Assembly, message.Type, message.Content);
 
                 if (domainEvent == null)

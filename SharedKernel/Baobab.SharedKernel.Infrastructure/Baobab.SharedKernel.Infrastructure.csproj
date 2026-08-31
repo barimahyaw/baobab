@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" />
     <PackageReference Include="Google.Protobuf" />
     <PackageReference Include="Grpc.AspNetCore" />
     <PackageReference Include="Grpc.AspNetCore.HealthChecks" />
@@ -30,6 +31,7 @@
     <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" />
     <PackageReference Include="Polly" />
     <PackageReference Include="Sentry" />
+    <PackageReference Include="Sentry.OpenTelemetry" />
     <PackageReference Include="StackExchange.Redis" />
   </ItemGroup>
 

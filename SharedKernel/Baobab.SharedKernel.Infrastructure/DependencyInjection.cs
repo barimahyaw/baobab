@@ -17,10 +17,12 @@ using System.Security.Claims;
 using System.Text;
 using Baobab.SharedKernel.Application.Abstractions.Data;
 using Baobab.SharedKernel.Infrastructure.Services.NotificationService;
+using Baobab.SharedKernel.Infrastructure.Services.AmazonStorageService;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Sentry.OpenTelemetry;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Baobab.SharedKernel.Infrastructure.BackgroundJobs;
@@ -38,6 +40,13 @@ public static class DependencyInjection
             .TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddScoped<IEmailNotificationService, EmailNotificationService>();
         services.AddScoped<ISMSNotificationService, SMSNotificationService>();
+        services.AddScoped<IPushNotificationService, PushNotificationService>();
+        return services;
+    }
+
+    public static IServiceCollection AddAmazonStorageService(this IServiceCollection services)
+    {
+        services.AddScoped<IAmazonSimpleStorageService, AmazonSimpleStorageService>();
         return services;
     }
 
@@ -263,13 +272,19 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddGlitchTipConfiguration(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddSentryConfiguration(this IServiceCollection services, IConfiguration config)
     {
-        var dsn = Environment.GetEnvironmentVariable("GLITCHTIP_DSN")
-            ?? config["GLITCHTIP_DSN"]
-            ?? throw new ArgumentNullException("GLITCHTIP_DSN");
+        // Wire-compatible with self-hosted GlitchTip as well as hosted Sentry -
+        // point SENTRY_DSN at whichever instance you run.
+        var dsn = Environment.GetEnvironmentVariable("SENTRY_DSN")
+            ?? config["SENTRY_DSN"]
+            ?? throw new ArgumentNullException("SENTRY_DSN");
 
-        SentrySdk.Init(opt => opt.Dsn = dsn);
+        SentrySdk.Init(opt =>
+        {
+            opt.Dsn = dsn;
+            opt.UseOpenTelemetry();
+        });
 
         return services;
     }

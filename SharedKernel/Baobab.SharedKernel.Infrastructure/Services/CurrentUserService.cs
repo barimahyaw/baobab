@@ -1,4 +1,4 @@
-﻿using Baobab.SharedKernel.Application.Abstractions.Services;
+using Baobab.SharedKernel.Application.Abstractions.Services;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
@@ -51,18 +51,37 @@ public class CurrentUserService : ICurrentUserService
         return zones;
     }
 
-    // get IP address
-    public string? IpAddress()
-    {
-        var ip = _contextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
-        return ip;
-    }
+    public string? IpAddress
+        => _contextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
 
-    // get user agent
-    public string? UserAgent()
+    public string? UserAgent
+        => _contextAccessor.HttpContext?.Request.Headers.UserAgent.ToString();
+
+    public string? TraceIdentifier
+        => _contextAccessor.HttpContext?.TraceIdentifier;
+
+    public string? Channel
+        => _contextAccessor.HttpContext?.Request.Headers["Channel"].ToString();
+
+    public string? DeviceId
+        => _contextAccessor.HttpContext?.Request.Headers["Device-Id"].ToString();
+
+    public string? AppVersion
+        => _contextAccessor.HttpContext?.Request.Headers["App-Version"].ToString();
+
+    public string? DeviceVersion
+        => _contextAccessor.HttpContext?.Request.Headers["Device-Version"].ToString();
+
+    public string? BearerToken
     {
-        var userAgent = _contextAccessor.HttpContext?.Request.Headers.UserAgent.ToString();
-        return userAgent;
+        get
+        {
+            var authorizationHeader = _contextAccessor.HttpContext?.Request.Headers.Authorization.ToString();
+            if (string.IsNullOrWhiteSpace(authorizationHeader) || !authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+                return null;
+
+            return authorizationHeader["Bearer ".Length..].Trim();
+        }
     }
 
     public string Role() => Claims.FirstOrDefault(c => c.Key == "Role").Value;

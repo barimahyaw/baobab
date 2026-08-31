@@ -6,7 +6,8 @@ public class OutboxMessage : Entity
 {
     public Guid Id { get; set; }
     public string Type { get; set; } = default!;
-    public string Assembly { get; set; } = default!;    
+    public string Assembly { get; set; } = default!;
+    public string ExecutingAssembly { get; set; } = default!;
     public string Content { get; set; } = default!;
     public DateTime OccurredOnUtc { get; set; }
     public DateTime? ProcessedDateUtc { get; set; }
