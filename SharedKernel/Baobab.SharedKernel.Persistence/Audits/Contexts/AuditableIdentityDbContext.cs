@@ -1,16 +1,30 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Baobab.SharedKernel.Persistence.Audits;
 
-namespace Baobab.SharedKernel.Persistence.Contexts;
+namespace Baobab.SharedKernel.Persistence.Audits.Contexts;
 
-public class AuditHelper
+public class AuditableIdentityDbContext<TUser, TRole, TKey>(DbContextOptions options)
+    : IdentityDbContext<TUser, TRole, TKey>(options)
+    where TUser : IdentityUser<TKey>
+    where TRole : IdentityRole<TKey>
+    where TKey : IEquatable<TKey>
 {
-    public static List<AuditEntry> OnBeforeSaveChanges(ChangeTracker changeTracker, Guid userId, DbSet<Audit> auditTrail)
+    public DbSet<Audit> AuditTrail { get; set; } = null!;
+
+    public virtual async Task<int> SaveChangesAsync(Guid userId)
     {
-        changeTracker.DetectChanges();
+        var auditEntries = OnBeforeSaveChanges(userId);
+        var result = await base.SaveChangesAsync();
+        await OnAfterSaveChanges(auditEntries);
+        return result;
+    }
+
+    public List<AuditEntry> OnBeforeSaveChanges(Guid userId)
+    {
+        ChangeTracker.DetectChanges();
         var auditEntries = new List<AuditEntry>();
-        foreach (var entry in changeTracker.Entries())
+        foreach (var entry in ChangeTracker.Entries())
         {
             if (entry.Entity is Audit || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                 continue;
@@ -20,7 +34,9 @@ public class AuditHelper
                 TableName = entry.Entity.GetType().Name,
                 UserId = userId
             };
+
             auditEntries.Add(auditEntry);
+
             foreach (var property in entry.Properties)
             {
                 if (property.IsTemporary)
@@ -60,17 +76,19 @@ public class AuditHelper
                 }
             }
         }
+
         foreach (var auditEntry in auditEntries.Where(_ => !_.HasTemporaryProperties))
         {
-            auditTrail.Add(auditEntry.ToAudit());
+            AuditTrail.Add(auditEntry.ToAudit());
         }
-        return auditEntries.Where(_ => _.HasTemporaryProperties).ToList();
+
+        return [.. auditEntries.Where(_ => _.HasTemporaryProperties)];
     }
 
-    public static async Task OnAfterSaveChanges(ChangeTracker changeTracker, List<AuditEntry> auditEntries, DbSet<Audit> auditTrail)
+    private Task OnAfterSaveChanges(List<AuditEntry> auditEntries)
     {
         if (auditEntries == null || auditEntries.Count == 0)
-            return;
+            return Task.CompletedTask;
 
         foreach (var auditEntry in auditEntries)
         {
@@ -85,8 +103,8 @@ public class AuditHelper
                     auditEntry.NewValues[prop.Metadata.Name] = prop.CurrentValue!;
                 }
             }
-            auditTrail.Add(auditEntry.ToAudit());
+            AuditTrail.Add(auditEntry.ToAudit());
         }
-        await changeTracker.Context.SaveChangesAsync();
+        return SaveChangesAsync();
     }
 }

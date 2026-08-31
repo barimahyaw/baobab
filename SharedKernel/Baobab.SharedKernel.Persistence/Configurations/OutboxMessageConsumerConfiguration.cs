@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Baobab.SharedKernel.Persistence.Configurations;
 
 public class OutboxMessageConsumerConfiguration<S>(S schema) : IEntityTypeConfiguration<OutboxMessageConsumer>
-    where S : ISchemaStringValue
+    where S : IProjectStringValue
 {
     public S Schema { get; } = schema;
     public void Configure(EntityTypeBuilder<OutboxMessageConsumer> builder)

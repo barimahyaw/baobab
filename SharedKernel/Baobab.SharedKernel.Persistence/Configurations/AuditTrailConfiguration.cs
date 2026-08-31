@@ -5,7 +5,7 @@ using Baobab.SharedKernel.Persistence.Audits;
 namespace Baobab.SharedKernel.Persistence.Configurations;
 
 public class AuditTrailConfiguration<S>(S schema) : IEntityTypeConfiguration<Audit>
-    where S : ISchemaStringValue
+    where S : IProjectStringValue
 {
     public S Schema { get; } = schema;
 
