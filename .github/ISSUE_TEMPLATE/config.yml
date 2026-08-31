@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/barimahyaw/ddd_event_driven_with_clean_architecture.base/discussions
+    about: Ask questions, share ideas, and discuss with the community
+  - name: 📚 Documentation
+    url: https://github.com/barimahyaw/ddd_event_driven_with_clean_architecture.base/tree/master/docs
+    about: Check out the documentation
+  - name: 🔒 Security Issues
+    url: https://github.com/barimahyaw/ddd_event_driven_with_clean_architecture.base/security/advisories/new
+    about: Report security vulnerabilities privately
