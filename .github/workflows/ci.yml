@@ -89,7 +89,7 @@ jobs:
       run: dotnet pack Baobab.sln --no-build --configuration Release --output ./packages
 
     - name: 📤 Upload packages
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: nuget-packages
         path: ./packages/*.nupkg
