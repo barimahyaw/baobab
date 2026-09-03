@@ -952,7 +952,7 @@ services.AddOpenTelemetryConfiguration(
     services, builder,
     serviceName: "my-service",
     serviceVersion: "1.0.0",
-    serviceNamespace: "keed-digital",
+    serviceNamespace: "my-namespace",
     samplingRatio: 1.0  // 0.0 to 1.0
 );
 ```

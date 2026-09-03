@@ -8,9 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- **Rebrand**: renamed the project from a mix of `DDD_Event_Driven_Clean_Architecture`
-  and `Keed_Pay`/`Keed_Digital` namespaces to a single `Baobab.SharedKernel.*`
-  identity across every project, namespace, and package.
+- **Rebrand**: renamed the project's namespaces from an earlier, inconsistent
+  naming scheme to a single `Baobab.SharedKernel.*` identity across every
+  project, namespace, and package.
 - **Target framework**: moved from .NET 9 to .NET 10.
 - **ID strategy**: replaced the `Ulid` value type with native `Guid`, generated via
   `Guid.CreateVersion7()` for the same sortable, time-ordered property Ulid provided.
