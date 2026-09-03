@@ -13,6 +13,10 @@ jobs:
   release:
     name: 🚀 Release to NuGet
     runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
     - name: 📥 Checkout code
@@ -32,8 +36,14 @@ jobs:
     - name: 📦 Create packages
       run: dotnet pack Baobab.sln --configuration Release --output ./packages
 
+    - name: 🔑 NuGet Login (OIDC trusted publishing)
+      id: nuget_login
+      uses: NuGet/login@v1
+      with:
+        user: Nana_Gyan_Ayeh
+
     - name: 🚀 Push to NuGet
-      run: dotnet nuget push ./packages/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push ./packages/*.nupkg --api-key "${{ steps.nuget_login.outputs.NUGET_API_KEY }}" --source https://www.nuget.org/api/v2/package --skip-duplicate
 
     - name: 📤 Upload packages as artifacts
       uses: actions/upload-artifact@v3
