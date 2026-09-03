@@ -51,18 +51,23 @@ shape: microservices, modular monoliths, or a single service.
 ## Quick Start
 
 ```bash
+dotnet add package Baobab.SharedKernel.Domain
+dotnet add package Baobab.SharedKernel.Application
+dotnet add package Baobab.SharedKernel.Infrastructure
+dotnet add package Baobab.SharedKernel.Persistence
+dotnet add package Baobab.SharedKernel.Presentation
+```
+
+Or clone the repo directly:
+
+```bash
 git clone https://github.com/barimahyaw/baobab.git
 cd baobab
 dotnet restore Baobab.sln
 dotnet build Baobab.sln
 ```
 
-NuGet packages (`Baobab.SharedKernel.Domain`, `.Application`,
-`.Infrastructure`, `.Persistence`, `.Presentation`) will be published once
-the project reaches its first tagged release — see
-[CHANGELOG.md](../CHANGELOG.md) for what's landed so far. Until then,
-reference the projects directly or via a project-to-project reference from a
-git submodule/subtree.
+See [CHANGELOG.md](../CHANGELOG.md) for what's landed so far.
 
 ## Learning Path
 
