@@ -3,15 +3,16 @@
 [![.NET](https://img.shields.io/badge/.NET-10.0-blue.svg)](https://dotnet.microsoft.com/download)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-A Clean Architecture / Domain-Driven Design foundation for building
-event-driven .NET microservices — CQRS, an assembly-aware OutBox pattern,
+A Clean Architecture / Domain-Driven Design foundation for .NET
+applications of any shape — microservices, modular monoliths, or a single
+well-organized service. CQRS, an assembly-aware OutBox pattern,
 comprehensive auditing, and a Result-based error-handling model, all wired
-together so a new service can start on business logic instead of
-infrastructure plumbing.
+together so you can start on business logic instead of infrastructure
+plumbing, whatever your deployment topology ends up being.
 
 This isn't a scaffold of interfaces waiting to be implemented — every layer
 below is a working implementation you can reference, extend, or drop into a
-service today.
+project today.
 
 ## Why this exists
 
@@ -156,7 +157,7 @@ public class UsersController : BaseApiController<UsersController>
 
 | Guide | Description |
 |-------|-------------|
-| [Getting Started](./docs/getting-started.md) | Build your first microservice step-by-step |
+| [Getting Started](./docs/getting-started.md) | Build your first service step-by-step |
 | [Architecture Overview](./docs/architecture-overview.md) | The Clean Architecture layers and how they relate |
 | [Team Architecture Handoff Guide](./docs/team-architecture-handoff-guide.md) | Complete technical reference, layer by layer |
 | [Patterns & Practices](./docs/patterns-and-practices.md) | Proven patterns with real examples |
