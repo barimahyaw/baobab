@@ -33,8 +33,11 @@ jobs:
     - name: 🧪 Run tests
       run: dotnet test Baobab.sln --configuration Release --verbosity normal
 
+    - name: 🏗️ Build
+      run: dotnet build Baobab.sln --configuration Release
+
     - name: 📦 Create packages
-      run: dotnet pack Baobab.sln --configuration Release --output ./packages
+      run: dotnet pack Baobab.sln --no-build --configuration Release --output ./packages
 
     - name: 🔑 NuGet Login (OIDC trusted publishing)
       id: nuget_login
