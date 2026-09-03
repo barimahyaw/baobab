@@ -3,7 +3,8 @@
 ## Building Microservices with .NET 10, Clean Architecture, and DDD
 
 This is the documentation index for Baobab.SharedKernel — a Clean Architecture
-foundation for building CQRS/DDD/event-driven microservices in .NET.
+foundation for building CQRS/DDD/event-driven .NET applications of any
+shape: microservices, modular monoliths, or a single service.
 
 ### What's in it
 
@@ -30,7 +31,7 @@ foundation for building CQRS/DDD/event-driven microservices in .NET.
 ## Table of Contents
 
 1. [Comprehensive Implementation Guide](./comprehensive-implementation-guide.md) — feature-by-feature reference
-2. [Getting Started](./getting-started.md) — build your first microservice step-by-step
+2. [Getting Started](./getting-started.md) — build your first service step-by-step
 3. [Architecture Overview](./architecture-overview.md) — the Clean Architecture structure
 4. [Team Architecture Handoff Guide](./team-architecture-handoff-guide.md) — the complete technical reference
 5. [Patterns and Best Practices](./patterns-and-practices.md)

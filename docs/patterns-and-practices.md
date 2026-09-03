@@ -2,7 +2,7 @@
 
 ## Mastering the Baobab SharedKernel Patterns
 
-This guide covers the essential patterns, best practices, and architectural decisions that make the SharedKernel architecture so powerful. These patterns have been battle-tested in production environments and will help you build robust, scalable microservices.
+This guide covers the essential patterns, best practices, and architectural decisions that make the SharedKernel architecture so powerful. These patterns have been battle-tested in production environments and will help you build robust, scalable .NET applications, whatever their deployment shape.
 
 ## 🎯 Core Architectural Patterns
 
