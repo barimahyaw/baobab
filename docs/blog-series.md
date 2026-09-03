@@ -1,8 +1,8 @@
-# Blog Series: Building Enterprise Microservices with .NET 10
+# Blog Series: Building Enterprise-Grade .NET 10 Applications
 
 ## A Complete Guide to the Baobab SharedKernel Architecture
 
-This blog series can be published across multiple posts to provide comprehensive coverage of building enterprise-grade microservices. Each post is designed to be standalone while building upon previous concepts.
+This blog series can be published across multiple posts to provide comprehensive coverage of building enterprise-grade .NET applications — whether as microservices, a modular monolith, or a single service. Each post is designed to be standalone while building upon previous concepts. The worked examples below use a microservice as the concrete illustration, but every pattern applies identically inside a modular monolith.
 
 ---
 
@@ -1943,6 +1943,7 @@ Each post can be:
 
 ### SEO Keywords
 - .NET 10 microservices
+- .NET 10 modular monolith
 - Clean Architecture .NET
 - CQRS implementation
 - Domain-driven design
@@ -1950,4 +1951,4 @@ Each post can be:
 - Microservices patterns
 - Production-ready .NET
 
-This comprehensive blog series establishes the SharedKernel as the go-to foundation for enterprise .NET microservices while providing tremendous value to the engineering community.
+This comprehensive blog series establishes the SharedKernel as the go-to foundation for enterprise .NET applications — microservices, modular monoliths, or anything in between — while providing tremendous value to the engineering community.

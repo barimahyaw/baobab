@@ -2,7 +2,7 @@
 
 ## Real-World Scenarios with Baobab SharedKernel
 
-This guide provides comprehensive, real-world examples showing how to implement common microservice scenarios using the SharedKernel architecture. Each example includes complete code implementations with explanations.
+This guide provides comprehensive, real-world examples showing how to implement common scenarios — whether in a microservice, a modular monolith, or a single service — using the SharedKernel architecture. Each example includes complete code implementations with explanations.
 
 ## 🛒 Example 1: E-Commerce Order Management
 

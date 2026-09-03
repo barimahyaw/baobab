@@ -1,6 +1,6 @@
 # Baobab SharedKernel - Comprehensive Architecture & Implementation Guide
 
-> **Purpose:** This document provides a complete technical reference for teams implementing microservices using the Baobab SharedKernel foundation. It covers every architectural pattern, code standard, configuration requirement, and implementation workflow needed to build production-grade services.
+> **Purpose:** This document provides a complete technical reference for teams implementing .NET services — microservices, modular monoliths, or a single service — using the Baobab SharedKernel foundation. It covers every architectural pattern, code standard, configuration requirement, and implementation workflow needed to build production-grade services.
 
 > **Target Framework:** .NET 10.0 | **Architecture:** Clean Architecture + DDD + CQRS
 > **SharedKernel Version:** 1.0.0 (all five projects versioned together)
@@ -16,7 +16,7 @@
 5. [Persistence Layer](#5-persistence-layer)
 6. [Infrastructure Layer](#6-infrastructure-layer)
 7. [Presentation Layer](#7-presentation-layer)
-8. [Building a New Microservice (Step-by-Step)](#8-building-a-new-microservice-step-by-step)
+8. [Building a New Service (Step-by-Step)](#8-building-a-new-service-step-by-step)
 9. [Code Standards & Conventions](#9-code-standards--conventions)
 10. [Environment Variables & Configuration Reference](#10-environment-variables--configuration-reference)
 11. [Technology Stack & NuGet Packages](#11-technology-stack--nuget-packages)
@@ -1132,11 +1132,11 @@ builder.AddSerilogConfiguration(configuration);
 
 ---
 
-## 8. Building a New Microservice (Step-by-Step)
+## 8. Building a New Service (Step-by-Step)
 
 ### 8.1 Project Setup
 
-Create 4 projects for your microservice following Clean Architecture:
+Create 4 projects for your service following Clean Architecture:
 
 ```
 MyService.Domain/          -->  References: SharedKernel.Domain

@@ -1,6 +1,6 @@
 # Getting Started with Baobab SharedKernel
 
-This guide will walk you through creating your first microservice using the Baobab SharedKernel architecture. By the end, you'll have a fully functional microservice with CQRS, domain events, and all the architectural patterns implemented.
+This guide will walk you through creating your first service using the Baobab SharedKernel architecture. By the end, you'll have a fully functional service with CQRS, domain events, and all the architectural patterns implemented.
 
 ## 📋 Prerequisites
 
@@ -24,7 +24,7 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_DB: microservice_db
+      POSTGRES_DB: service_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -56,7 +56,7 @@ Start the infrastructure:
 docker-compose up -d
 ```
 
-## 🏗️ Step 2: Create Your First Microservice
+## 🏗️ Step 2: Create Your First Service
 
 Let's build a **User Management Service** as our example.
 
@@ -666,7 +666,7 @@ curl https://localhost:7001/api/v1/users/{user-id}
 
 ## 🎉 Congratulations!
 
-You've successfully created your first microservice using the Baobab SharedKernel architecture! 
+You've successfully created your first service using the Baobab SharedKernel architecture! 
 
 ### What You've Accomplished
 

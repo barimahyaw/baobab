@@ -2,7 +2,7 @@
 
 ## Understanding the Baobab SharedKernel Architecture
 
-The Baobab SharedKernel implements a sophisticated **Clean Architecture** pattern combined with **Domain-Driven Design (DDD)** principles to create a robust foundation for enterprise microservices. This architecture ensures your applications are maintainable, testable, and scalable from day one.
+The Baobab SharedKernel implements a sophisticated **Clean Architecture** pattern combined with **Domain-Driven Design (DDD)** principles to create a robust foundation for .NET applications of any shape — microservices, modular monoliths, or a single service. This architecture ensures your applications are maintainable, testable, and scalable from day one.
 
 ## 🏗️ The Big Picture
 

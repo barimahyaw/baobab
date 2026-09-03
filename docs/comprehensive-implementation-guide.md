@@ -856,4 +856,4 @@ Integrated Sentry error reporting with correlation IDs.
 - **API Versioning**: Built-in version management
 - **Global Exception Handling**: Consistent error responses
 
-This SharedKernel represents a comprehensive, production-tested foundation for enterprise microservices, with every feature actually implemented and ready for use.
+This SharedKernel represents a comprehensive, production-tested foundation for enterprise .NET applications — whether built as microservices, a modular monolith, or a single service — with every feature actually implemented and ready for use.
