@@ -85,6 +85,19 @@ dependencies.
 
 ## Getting Started
 
+Install whichever layers you need from NuGet:
+
+```bash
+dotnet add package Baobab.SharedKernel.Domain
+dotnet add package Baobab.SharedKernel.Application
+dotnet add package Baobab.SharedKernel.Infrastructure
+dotnet add package Baobab.SharedKernel.Persistence
+dotnet add package Baobab.SharedKernel.Presentation
+```
+
+Or clone the repo directly if you'd rather reference the projects or read the
+source alongside your own code:
+
 ```bash
 git clone https://github.com/barimahyaw/baobab.git
 cd baobab
@@ -92,9 +105,7 @@ dotnet restore Baobab.sln
 dotnet build Baobab.sln
 ```
 
-NuGet packages aren't published yet — for now, reference the projects
-directly or pull the `SharedKernel/` folder into your solution. See
-[docs/getting-started.md](./docs/getting-started.md) for a full walkthrough
+See [docs/getting-started.md](./docs/getting-started.md) for a full walkthrough
 of building a service on top of this foundation.
 
 ## A taste of the patterns
@@ -167,9 +178,9 @@ public class UsersController : BaseApiController<UsersController>
 
 ## Project Status
 
-This is an actively evolving personal project — the core is stable and used
-as the foundation for real services, but public NuGet packages and a
-templated `dotnet new` experience aren't published yet. Track progress in
+This is an actively evolving personal project — the core is stable, published
+on NuGet, and used as the foundation for real services. A templated
+`dotnet new` experience isn't available yet. Track progress in
 [CHANGELOG.md](./CHANGELOG.md).
 
 ## Contributing
